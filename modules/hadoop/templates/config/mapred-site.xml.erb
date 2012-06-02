@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<!-- This file is managed by puppet. Changes may be lost next puppet run. -->
+
+<configuration>
+
+  <property>
+    <name>mapred.job.tracker</name>
+    <value><%= scope.lookupvar('hadoop::config::hadoop_jobtracker') %>:<%= 8021 -%></value>
+  </property>
+
+  <property>
+    <name>mapred.local.dir</name>
+    <value> <%= scope.lookupvar('hadoop::config::hadoop_default_dirs').collect {|hadoop_disk| hadoop_disk + "/mapred/local"}.join(',') -%></value>
+    <final>true</final>
+  </property>
+
+  <property>
+    <name>mapred.hosts.exclude</name>
+    <value><%= scope.lookupvar('hadoop::config::hadoop_config_dir') %>/excludes</value>
+    <final>true</final>
+  </property>
+
+  <property>
+    <name>mapreduce.map.child.java.opts</name>
+    <value>-Xmx1500M</value>
+  </property>
+
+  <property>
+    <name>mapreduce.reduce.child.java.opts</name>
+    <value>-Xmx1500M</value>
+  </property>
+
+  <property>
+    <name>mapred.jobtracker.taskScheduler</name>
+    <value>org.apache.hadoop.mapred.FairScheduler</value>
+  </property>
+
+  <property>
+    <name>mapred.fairscheduler.allocation.file</name>
+    <value>/etc/hadoop/conf.default/fair-scheduler.xml</value>
+  </property>
+
+  <property>
+    <name>mapred.fairscheduler.poolnameproperty</name>
+    <value>mapred.job.queue.name</value>
+  </property>
+
+ <!-- These are per jobtracker settings -->
+  <property>
+    <name>mapred.tasktracker.map.tasks.maximum</name>
+    <value><%= scope.lookupvar('hadoop::config::hadoop_map_tasks_max') -%></value>
+  </property>
+
+  <property>
+    <name>mapred.tasktracker.reduce.tasks.maximum</name>
+    <value><%= scope.lookupvar('hadoop::config::hadoop_reduce_tasks_max') -%></value>
+  </property>
+
+
+</configuration>

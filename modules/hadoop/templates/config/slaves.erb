@@ -1,0 +1,7 @@
+# Where we run slaves -
+# not necessarily used with puppet but configuring for completeness
+<% if has_variable?('hadoop_slaves') -%>
+<% hadoop_slaves.each do |slave| -%>
+<%= slave %>
+<% end -%>
+<% end -%>

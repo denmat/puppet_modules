@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<!-- This file is managed by puppet. Changes may be lost next puppet run. -->
+
+<configuration>
+
+    <property>
+	<name>dfs.default.name</name>
+        <value>hdfs://<%= hostname %>:50010/</value>
+    </property>
+ 
+    <property>
+	<name>dfs.data.dir</name>
+	<value> <%= scope.lookupvar('hadoop::config::hadoop_default_dirs').collect {|hadoop_disk| hadoop_disk + "/hadoop/dfs/data"}.join(',') -%> </value>
+    </property>
+
+    <property>
+	<name>dfs.name.dir</name>
+	<value> <%= scope.lookupvar('hadoop::config::hadoop_default_dirs').collect {|hadoop_disk| hadoop_disk + "/hadoop/dfs/namenode"}.join(',') -%> </value>
+    </property>
+ 
+    <property>
+      <name>dfs.datanode.max.xcievers</name>
+      <value>5000</value>
+      <description>Upped the number of xceivers to avoid errors </description>
+    </property>
+
+    <property>
+      <name>dfs.safemode.extension</name>
+      <value>0</value>
+      <description>Additional time to stay in safe mode after the threshold of reported datanodes has been reached</description>
+    </property>
+
+  <property>
+    <name>fs.checkpoint.dir</name>
+    <% if role =~ /namenode/ -%>
+    <value> <%= scope.lookupvar('hadoop::config::hadoop_default_dirs').collect {|hadoop_disk| hadoop_disk + "/hadoop/dfs/second_namenode"}.join(',') -%>
+    <% else -%>
+    <value> <% end -%></value>
+    <final>true</final>
+  </property>
+
+  <property>
+    <name>dfs.hosts.exclude</name>
+    <value><%= scope.lookupvar('hadoop::config::hadoop_config_dir') %>/excludes</value>
+    <final>true</final>
+  </property>
+  
+  <property> 
+    <name>dfs.replication</name>
+    <value><%= scope.lookupvar('hadoop::config::hadoop_fs_replication') %></value>
+  </property>
+
+  <!-- Reserve 1G freespace -->
+  <property>
+    <name>dfs.datanode.du.reserved</name>
+    <value>1073741824</value>
+    <final>true</final>
+  </property>
+
+</configuration>
