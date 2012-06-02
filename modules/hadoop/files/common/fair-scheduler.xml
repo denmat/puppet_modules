@@ -1,7 +1,0 @@
-<?xml version="1.0"?> 
-<allocations> 
-  <user name="denmat"> 
-    <maxRunningJobs>10</maxRunningJobs> 
-  </user> 
-  <userMaxJobsDefault>3</userMaxJobsDefault> 
-</allocations>
