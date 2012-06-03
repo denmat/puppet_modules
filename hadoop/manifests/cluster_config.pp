@@ -1,15 +1,14 @@
 class hadoop::config::cluster_config {
 
   File {  ensure  => present,
-          require => Package['hadoop-0.20-namenode'],
-          notify  => Service['hadoop-0.20-namenode'],
 	  owner   => root,
 	  group   => root,
-	  mode    => 0644 }
+	  mode    => 0644,
+          tag     => 'cluster_files' }
 
   File <| tag == 'common_config_files' |> ->
 
-  file {  
+  @file {  
   '/etc/hadoop-0.20/conf.default/hdfs-site.xml':
     ensure  => present,
     content => template("hadoop/config/hdfs-site.xml.erb");

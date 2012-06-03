@@ -43,7 +43,8 @@ class hadoop::config {
   @file { "/var/log/hadoop-0.20":
     ensure => directory,
     owner  => 'hdfs',
-    mode   => 0755,
+    group  => 'mapred',
+    mode   => 0775,
     tag    => 'common_config_files',
   }
 
@@ -51,7 +52,7 @@ class hadoop::config {
     hadoop::config::common_dirs { $hadoop_default_dirs: }
   }
 
-  @exec {"set_config_alternatives":
+  exec {"set_config_alternatives":
     command => "/usr/sbin/alternatives --install /etc/hadoop-0.20/conf hadoop-0.20-conf /etc/hadoop-0.20/conf.default 50",
     onlyif  => "/usr/bin/test `alternatives --display hadoop-0.20-conf |grep -c 'version is /etc/hadoop-0.20/conf.default'` -ne 1",
     require => File["/etc/hadoop-0.20/conf.default"],

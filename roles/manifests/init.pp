@@ -1,7 +1,7 @@
 class roles {
 
   # add hosts to dns and issue restart of dnsmasq
-  include dns::add_node
+  class {"dns::add_node": stage => first }
 
   # add admin users to all hosts.
 
