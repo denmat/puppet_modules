@@ -50,4 +50,10 @@ class roles {
   if $::role == 'hadoop_client' {
     include roles::hadoop_client
   }
+  if $::role == "jenkins_master" {
+    include roles::jenkins_master
+  }
+  if $::role == "jenkins_slave" {
+    include roles::jenkins_slave
+  }
 }
