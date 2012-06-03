@@ -13,7 +13,7 @@ define provisioning::postgresql::pgsql_create_db {
   }
 
   exec {"set_password":
-    command     => "/usr/bin/psql -c \"create role $db_user with nosuperuser createdb LOGIN PASSWORD 'md5$db_pw';\" ",
+    command     => "/usr/bin/psql -c \"create role $db_user with nosuperuser createdb LOGIN PASSWORD '$db_pw';\" ",
     onlyif      => "/usr/bin/test `psql puppet -c \"\du\" |grep -c $db_user` -eq 0",
     refreshonly => true,
     user        => 'postgres',
