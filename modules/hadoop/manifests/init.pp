@@ -1,5 +1,0 @@
-class hadoop {
- 
- 
-} #end class
-
