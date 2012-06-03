@@ -1,6 +1,7 @@
 class hadoop::config::cluster_config_files {
+   include hadoop::config
 
-  File <| tag == 'common_config_files' |> ->
+  File <| tag == 'common_config_files' |> 
 
   @file {  
   '/etc/hadoop-0.20/conf.default/hdfs-site.xml':

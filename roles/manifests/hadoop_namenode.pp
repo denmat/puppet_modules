@@ -1,11 +1,11 @@
 class roles::hadoop_namenode {
 
-  include hadoop::install::jobtracker
-  include hadoop::install::tasktracker
-  include hadoop::namenode::config
-  include hadoop::datanode::config
-  include hadoop::services::jobtracker
-  include hadoop::services::tasktracker
-  include hadoop::services::datanode
-  include hadoop::services::namenode
+  class {'hadoop::namenode::config': } ->
+  class {'hadoop::datanode::config': } ->
+  class {'hadoop::install::jobtracker': } ->
+  class {'hadoop::install::tasktracker': } ->
+  class {'hadoop::services::namenode': } ->
+  class {'hadoop::services::jobtracker': } ->
+  class {'hadoop::services::tasktracker': } ->
+  class {'hadoop::services::datanode': }
 }

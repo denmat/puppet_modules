@@ -1,6 +1,6 @@
 class provisioning::puppet::master_config {
 
-  include provisioning::puppet::server_install
+  include provisioning::puppet::master_install
 
   $puppet_master = hiera('puppet_master','puppet')
   $puppet_certname = hiera('puppet_certname','puppet')

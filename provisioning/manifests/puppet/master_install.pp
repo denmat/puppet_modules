@@ -1,4 +1,4 @@
-class provisioning::puppet::server_install {
+class provisioning::puppet::master_install {
   # collect the puppet package list from hiera.
   # should be like the following
   # puppet_package_list:

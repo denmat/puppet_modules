@@ -1,9 +1,8 @@
 class roles::hadoop_datanode {
 
-  include hadoop::install::jobtracker
-  include hadoop::install::tasktracker
-  include hadoop::datanode::config
-  include hadoop::services::tasktracker
-  include hadoop::services::datanode
+  class {"hadoop::datanode::config": } -> 
+  class {"hadoop::install::tasktracker": } ->
+  class {"hadoop::services::datanode": } -> 
+  class {"hadoop::services::tasktracker": }
 
 }
