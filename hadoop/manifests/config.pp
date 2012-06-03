@@ -1,4 +1,5 @@
 class hadoop::config {
+  class {'hadoop::repo': stage => repos }
   include hadoop::install::common
   include hadoop::services::iptables
 
@@ -10,11 +11,6 @@ class hadoop::config {
   $hadoop_fs_replication   = hiera('hadoop_fs_replication')
   $hadoop_map_tasks_max    = hiera('hadoop_map_tasks_max')
   $hadoop_reduce_tasks_max = hiera('hadoop_reduce_tasks_max')
-  $hadoop_repos            = hiera('yumrepos::cloudera')
-  $hadoop_repos_defaults   = { enabled => 1 }
-
-  # create repositories
-  create_resources(yumrepo, $hadoop_repos, $hadoop_repos_defaults) 
 
   @file { $hadoop_default_dirs:
     ensure => directory,
