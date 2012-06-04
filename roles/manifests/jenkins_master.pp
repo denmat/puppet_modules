@@ -6,4 +6,6 @@ class roles::jenkins_master {
 
   include integration::jenkins::jenkins_config
 
+  include hadoop::client::hadoop_client
+
 }
